@@ -3,9 +3,16 @@ import React, { useState, useEffect } from 'react';
 import { ShieldCheck, UserPlus, Trash2, ArrowLeft, Users } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+interface Licenca {
+  id: string;
+  nome: string;
+  email: string;
+  senha: string;
+}
+
 export default function AdminPanel() {
   const router = useRouter();
-  const [licencas, setLicencas] = useState([]);
+  const [licencas, setLicencas] = useState<Licenca[]>([]);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -16,7 +23,7 @@ export default function AdminPanel() {
     if (salvas) {
       setLicencas(JSON.parse(salvas));
     } else {
-      const iniciais = [
+      const iniciais: Licenca[] = [
         { id: '1', nome: 'Dra. Irmã (Cliente Beta)', email: 'dra.irma@privia.vet', senha: 'vet123' },
         { id: '2', nome: 'Hospital Vet Central', email: 'clinica@central.vet', senha: 'central2026' }
       ];
@@ -25,7 +32,7 @@ export default function AdminPanel() {
     }
   }, []);
 
-  const handleCriarLicenca = (e) => {
+  const handleCriarLicenca = (e: React.FormEvent) => {
     e.preventDefault();
     if (!nome || !email || !senha) return;
 
@@ -34,7 +41,7 @@ export default function AdminPanel() {
       return;
     }
 
-    const novaLicenca = { id: Date.now().toString(), nome, email, senha };
+    const novaLicenca: Licenca = { id: Date.now().toString(), nome, email, senha };
     const atualizadas = [...licencas, novaLicenca];
     
     setLicencas(atualizadas);
@@ -47,7 +54,7 @@ export default function AdminPanel() {
     setTimeout(() => setMensagem(''), 3000);
   };
 
-  const handleExcluir = (id) => {
+  const handleExcluir = (id: string) => {
     if (confirm('Tem certeza que deseja revogar o acesso desta licença?')) {
       const atualizadas = licencas.filter(l => l.id !== id);
       setLicencas(atualizadas);
@@ -150,6 +157,7 @@ export default function AdminPanel() {
                       <td className="p-3 font-mono text-emerald-400">{l.senha}</td>
                       <td className="p-3 text-right">
                         <button 
+                          type="button"
                           onClick={() => handleExcluir(l.id)} 
                           className="text-red-400 hover:text-red-300 p-1.5 rounded hover:bg-red-500/10 transition"
                           title="Revogar Licença"
