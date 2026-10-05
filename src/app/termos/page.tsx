@@ -3,11 +3,19 @@ import React, { useState } from 'react';
 import Sidebar from '../../components/layout/Sidebar';
 import { ShieldCheck, FileSignature, Printer, Send, X, Edit3, ClipboardList, AlertCircle } from 'lucide-react';
 
+interface Documento {
+  id: number;
+  titulo: string;
+  desc: string;
+  tipo: string;
+  conteudo: string;
+}
+
 export default function Termos() {
-  const [docAberto, setDocAberto] = useState(null);
+  const [docAberto, setDocAberto] = useState<{ id: number; titulo: string } | null>(null);
   const [textoEditavel, setTextoEditavel] = useState('');
 
-  const documentos = [
+  const documentos: Documento[] = [
     { 
       id: 1, 
       titulo: 'Receituário Médico Veterinário', 
@@ -38,12 +46,12 @@ export default function Termos() {
     }
   ];
 
-  const abrirVisualizador = (doc) => {
+  const abrirVisualizador = (doc: Documento) => {
     setDocAberto({ id: doc.id, titulo: doc.titulo });
     setTextoEditavel(doc.conteudo);
   };
 
-  const abrirWhatsapp = (titulo) => {
+  const abrirWhatsapp = (titulo: string) => {
     const texto = encodeURIComponent("Olá! Segue o link para assinatura digital do seu documento: " + titulo + ". Atenciosamente, Clínica PriviaVet.");
     window.open("https://wa.me/?text=" + texto, '_blank');
   };
@@ -76,10 +84,10 @@ export default function Termos() {
                 </div>
                 
                 <div className="flex space-x-2 shrink-0">
-                  <button onClick={() => abrirVisualizador(doc)} className="flex items-center px-3 py-2 bg-slate-100 text-slate-700 rounded text-sm font-medium hover:bg-slate-200 transition">
+                  <button type="button" onClick={() => abrirVisualizador(doc)} className="flex items-center px-3 py-2 bg-slate-100 text-slate-700 rounded text-sm font-medium hover:bg-slate-200 transition">
                     <Edit3 size={16} className="mr-2" /> Editar e Imprimir
                   </button>
-                  <button onClick={() => abrirWhatsapp(doc.titulo)} className="flex items-center px-3 py-2 bg-emerald-600 text-white rounded text-sm font-medium hover:bg-emerald-700 transition">
+                  <button type="button" onClick={() => abrirWhatsapp(doc.titulo)} className="flex items-center px-3 py-2 bg-emerald-600 text-white rounded text-sm font-medium hover:bg-emerald-700 transition">
                     <Send size={16} className="mr-2" /> Enviar (WhatsApp)
                   </button>
                 </div>
@@ -96,7 +104,7 @@ export default function Termos() {
               <h3 className="font-bold text-slate-800 flex items-center text-sm">
                 <Edit3 size={18} className="mr-2 text-blue-600" /> Modo de Edição Livre: {docAberto.titulo}
               </h3>
-              <button onClick={() => setDocAberto(null)} className="text-slate-500 hover:text-slate-800"><X size={20} /></button>
+              <button type="button" onClick={() => setDocAberto(null)} className="text-slate-500 hover:text-slate-800"><X size={20} /></button>
             </div>
             
             <div className="p-6 overflow-y-auto flex-1 bg-slate-200">
@@ -113,10 +121,10 @@ export default function Termos() {
             <div className="p-4 border-t border-slate-200 flex justify-between items-center bg-slate-50 rounded-b-lg">
               <p className="text-xs text-slate-500 flex items-center"><AlertCircle size={14} className="mr-1"/> Podes alterar qualquer texto antes de imprimir.</p>
               <div className="flex space-x-3">
-                <button onClick={() => setDocAberto(null)} className="px-4 py-2 text-slate-600 font-medium hover:bg-slate-200 rounded text-sm">
+                <button type="button" onClick={() => setDocAberto(null)} className="px-4 py-2 text-slate-600 font-medium hover:bg-slate-200 rounded text-sm">
                   Cancelar
                 </button>
-                <button onClick={() => { alert('Documento gerado e enviado para a impressora!'); setDocAberto(null); }} className="px-4 py-2 bg-slate-900 text-white font-medium hover:bg-slate-800 rounded flex items-center shadow-md text-sm">
+                <button type="button" onClick={() => { alert('Documento gerado e enviado para a impressora!'); setDocAberto(null); }} className="px-4 py-2 bg-slate-900 text-white font-medium hover:bg-slate-800 rounded flex items-center shadow-md text-sm">
                   <Printer size={18} className="mr-2" /> Imprimir Documento
                 </button>
               </div>
