@@ -9,7 +9,7 @@ export default function Home() {
   const [senha, setSenha] = useState('');
   const [erro, setErro] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setErro('');
 
@@ -29,7 +29,7 @@ export default function Home() {
     ];
 
     const usuarioEncontrado = licencas.find(
-      (u) => u.email.trim().toLowerCase() === email.trim().toLowerCase() && u.senha === senha
+      (u: any) => u.email.trim().toLowerCase() === email.trim().toLowerCase() && u.senha === senha
     );
 
     if (usuarioEncontrado) {
