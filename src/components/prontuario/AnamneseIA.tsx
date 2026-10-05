@@ -1,14 +1,20 @@
 ﻿"use client";
 import React, { useState } from 'react';
 import Sidebar from '../layout/Sidebar';
-import { Stethoscope, Sparkles, CheckCircle, FileText } from 'lucide-react';
+import { Stethoscope, Sparkles } from 'lucide-react';
+
+interface ResultadoIA {
+  hipoteses: string[];
+  conduta: string;
+  medicamentos: string[];
+}
 
 export default function AnamneseIA() {
   const [sintomas, setSintomas] = useState('');
   const [loading, setLoading] = useState(false);
-  const [resultado, setResultado] = useState(null);
+  const [resultado, setResultado] = useState<ResultadoIA | null>(null);
 
-  const handleAnalisar = (e) => {
+  const handleAnalisar = (e: React.FormEvent) => {
     e.preventDefault();
     if (!sintomas.trim()) return;
     setLoading(true);

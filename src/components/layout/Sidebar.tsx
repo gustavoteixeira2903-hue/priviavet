@@ -4,9 +4,14 @@ import Link from 'next/link';
 import { Building2, Home, Users, ShieldCheck, LogOut, Stethoscope, PlusCircle, Trash2, X } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
+interface Clinica {
+  id: string;
+  nome: string;
+}
+
 export default function Sidebar() {
   const router = useRouter();
-  const [clinicas, setClinicas] = useState([
+  const [clinicas, setClinicas] = useState<Clinica[]>([
     { id: '1', nome: 'Hospital Vet Central' },
     { id: '2', nome: 'Clínica 24h Curitiba' }
   ]);
@@ -14,7 +19,7 @@ export default function Sidebar() {
   const [showModalClinica, setShowModalClinica] = useState(false);
   const [novaClinicaNome, setNovaClinicaNome] = useState('');
 
-  const handleAdicionarClinica = (e) => {
+  const handleAdicionarClinica = (e: React.FormEvent) => {
     e.preventDefault();
     if (!novaClinicaNome.trim()) return;
     const novaId = Date.now().toString();
@@ -24,7 +29,7 @@ export default function Sidebar() {
     setShowModalClinica(false);
   };
 
-  const handleExcluirClinica = (id, e) => {
+  const handleExcluirClinica = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
     if (clinicas.length <= 1) {
       alert('Você precisa manter pelo menos um local de atendimento.');
@@ -54,7 +59,7 @@ export default function Sidebar() {
       <div className="p-4 border-b border-slate-800">
         <div className="flex justify-between items-center mb-1">
           <p className="text-xs text-slate-400 font-medium">Local de Atendimento</p>
-          <button onClick={() => setShowModalClinica(true)} className="text-emerald-400 hover:text-emerald-300 transition flex items-center text-xs font-semibold" title="Adicionar Nova Clínica">
+          <button type="button" onClick={() => setShowModalClinica(true)} className="text-emerald-400 hover:text-emerald-300 transition flex items-center text-xs font-semibold" title="Adicionar Nova Clínica">
             <PlusCircle size={14} className="mr-1" /> Novo
           </button>
         </div>
@@ -72,7 +77,7 @@ export default function Sidebar() {
         </div>
         {clinicas.length > 1 && (
           <div className="mt-2 flex justify-end">
-            <button onClick={(e) => handleExcluirClinica(clinicaSelecionada, e)} className="text-[11px] text-red-400 hover:underline flex items-center">
+            <button type="button" onClick={(e) => handleExcluirClinica(clinicaSelecionada, e)} className="text-[11px] text-red-400 hover:underline flex items-center">
               <Trash2 size={12} className="mr-1" /> Remover local atual
             </button>
           </div>
@@ -99,7 +104,6 @@ export default function Sidebar() {
         </div>
       </nav>
 
-      {/* Rodapé com Perfil e Botão de Sair Funcional */}
       <div className="p-4 border-t border-slate-800 bg-slate-950/40 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center font-bold text-slate-950 text-xs">
@@ -111,6 +115,7 @@ export default function Sidebar() {
           </div>
         </div>
         <button 
+          type="button"
           onClick={handleLogout} 
           className="bg-slate-800 hover:bg-red-500/20 text-slate-300 hover:text-red-400 p-2 rounded-lg transition flex items-center border border-slate-700"
           title="Sair do Sistema"
@@ -124,7 +129,7 @@ export default function Sidebar() {
           <div className="bg-white text-slate-900 rounded-lg p-6 w-full max-w-sm shadow-2xl">
             <div className="flex justify-between items-center mb-4">
               <h3 className="text-base font-bold text-slate-800">Adicionar Local de Atendimento</h3>
-              <button onClick={() => setShowModalClinica(false)} className="text-slate-500 hover:text-slate-800"><X size={18} /></button>
+              <button type="button" onClick={() => setShowModalClinica(false)} className="text-slate-500 hover:text-slate-800"><X size={18} /></button>
             </div>
             <form onSubmit={handleAdicionarClinica} className="space-y-4">
               <div>
