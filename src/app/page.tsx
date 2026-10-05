@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 import React, { useState } from 'react';
-import { ShieldCheck, Zap, ArrowRight, LogIn, Lock } from 'lucide-react';
+import { ArrowRight, LogIn, Lock } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 
 export default function Home() {
@@ -36,7 +36,7 @@ export default function Home() {
       localStorage.setItem('privia_logged_name', usuarioEncontrado.nome);
       router.push('/dashboard');
     } else {
-      setErro('E-mail não licenciado ou palavra-passe incorreta. (Usa admin123 para o admin)');
+      setErro('E-mail não licenciado ou palavra-passe incorreta.');
     }
   };
 
@@ -98,14 +98,10 @@ export default function Home() {
           </button>
         </form>
 
-        <div className="mt-8 text-center border-t border-slate-100 pt-6 space-y-2">
+        <div className="mt-8 text-center border-t border-slate-100 pt-6">
           <p className="text-xs text-slate-500 flex items-center justify-center">
             <Lock size={14} className="mr-1 text-emerald-600" /> Acesso protegido e seguro.
           </p>
-          <div className="text-[11px] text-slate-500 bg-slate-100 p-2 rounded">
-            <strong>Admin:</strong> gustavoteixeira2903@gmail.com <br/>
-            <strong>Password:</strong> admin123
-          </div>
         </div>
       </div>
     </div>
