@@ -3,8 +3,16 @@ import React, { useState } from 'react';
 import Sidebar from '../../components/layout/Sidebar';
 import { Users, Search, AlertCircle, CheckCircle2, X, Clock, FileText } from 'lucide-react';
 
+interface Tutor {
+  id: number;
+  nome: string;
+  cpf: string;
+  paciente: string;
+  lgpd: boolean;
+}
+
 export default function Pacientes() {
-  const [tutores, setTutores] = useState([
+  const [tutores, setTutores] = useState<Tutor[]>([
     { id: 1, nome: 'Carlos Eduardo Silva', cpf: '000.111.222-33', paciente: 'Rex (Canino)', lgpd: true },
     { id: 2, nome: 'Mariana Souza', cpf: '111.222.333-44', paciente: 'Mimi (Felino)', lgpd: false },
     { id: 3, nome: 'Roberto Alves', cpf: '222.333.444-55', paciente: 'Thor (Canino)', lgpd: true },
@@ -12,9 +20,9 @@ export default function Pacientes() {
 
   const [showModal, setShowModal] = useState(false);
   const [novo, setNovo] = useState({ nome: '', cpf: '', paciente: '', lgpd: false });
-  const [prontuarioAberto, setProntuarioAberto] = useState(null);
+  const [prontuarioAberto, setProntuarioAberto] = useState<Tutor | null>(null);
 
-  const handleSalvar = (e) => {
+  const handleSalvar = (e: React.FormEvent) => {
     e.preventDefault();
     setTutores([...tutores, { id: Date.now(), ...novo }]);
     setShowModal(false);
