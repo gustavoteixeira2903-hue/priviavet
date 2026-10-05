@@ -1,0 +1,62 @@
+﻿generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  nome          String
+  registro      String?
+  clinicas      ClinicaUser[]
+  atendimentos  Prontuario[]
+}
+
+model Clinica {
+  id        String         @id @default(uuid())
+  nome      String
+  users     ClinicaUser[]
+  pacientes Paciente[]
+}
+
+model ClinicaUser {
+  userId    String
+  clinicaId String
+  user      User    @relation(fields: [userId], references: [id])
+  clinica   Clinica @relation(fields: [clinicaId], references: [id])
+  
+  @@id([userId, clinicaId])
+}
+
+model Tutor {
+  id              String     @id @default(uuid())
+  nome            String
+  cpf             String     @unique
+  lgpd_consentido Boolean    @default(false)
+  pacientes       Paciente[]
+}
+
+model Paciente {
+  id          String       @id @default(uuid())
+  nome        String
+  especie     String?      
+  tutorId     String
+  tutor       Tutor        @relation(fields: [tutorId], references: [id])
+  clinicaId   String
+  clinica     Clinica      @relation(fields: [clinicaId], references: [id])
+  prontuarios Prontuario[]
+}
+
+model Prontuario {
+  id             String   @id @default(uuid())
+  sintomas       String   @db.Text
+  diagnostico_ia String?  @db.Text
+  pacienteId     String
+  paciente       Paciente @relation(fields: [pacienteId], references: [id])
+  userId         String
+  user           User     @relation(fields: [userId], references: [id])
+  createdAt      DateTime @default(now())
+}

@@ -1,0 +1,10 @@
+var R=require("../../chunks/ssr/[turbopack]_runtime.js")("server/app/_global-error/page.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0ut13q4._.js")
+R.c("server/chunks/ssr/14vv_next_dist_15712o9._.js")
+R.c("server/chunks/ssr/14vv_next_dist_esm_build_templates_app-page_0nkd5q8.js")
+R.c("server/chunks/ssr/[root-of-the-server]__0y_4bt1._.js")
+R.c("server/chunks/ssr/[root-of-the-server]__1jn4n3t._.js")
+R.c("server/chunks/ssr/14vv_next_dist_client_components_builtin_global-error_1wda7ub.js")
+R.c("server/chunks/ssr/Privia_apps_web__next-internal_server_app__global-error_page_actions_03s8k94.js")
+R.m(91301)
+module.exports=R.m(91301).exports

@@ -1,0 +1,3 @@
+module.exports=[76942,a=>{"use strict";var b=a.i(86254);a.s(["default",0,function(){return(0,b.jsx)("main",{className:"min-h-screen bg-zinc-950 text-white flex items-center justify-center",children:(0,b.jsxs)("div",{className:"text-center",children:[(0,b.jsx)("div",{className:"w-10 h-10 border-4 border-zinc-700 border-t-white rounded-full animate-spin mx-auto"}),(0,b.jsx)("p",{className:"text-zinc-400 mt-4",children:"Carregando a Privia..."})]})})}])},25140,a=>{a.n(a.i(76942))}];
+
+//# sourceMappingURL=Privia_apps_web_app_loading_tsx_1mq743h._.js.map
